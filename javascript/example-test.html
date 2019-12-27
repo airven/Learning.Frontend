@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>javascript测试代码</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+
+<html>
+
+<body>
+    <script>
+
+        //以下这段代码是为了兼容es5以下版本
+        // if (typeof Object.create !== "function") {
+        //     Object.create = function (proto, propertiesObject) {
+        //         if (typeof proto !== 'object' && typeof proto !== 'function') {
+        //             throw new TypeError('Object prototype may only be an Object: ' + proto);
+        //         } else if (proto === null) {
+        //             throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument.");
+        //         }
+
+        //         if (typeof propertiesObject != 'undefined') throw new Error("This browser's implementation of Object.create is a shim and doesn't support a second argument.");
+
+        //         function F() { }
+        //         F.prototype = proto;
+
+        //         return new F();
+        //     };
+        // }
+
+
+        
+        // function person(name, age, address) {
+        //     // console.log(name + "-" + age + "-" + address);
+
+        //     var obj = {};
+        //     obj.name = name;
+        //     obj.age = age;
+        //     obj.address = address;
+        //     obj.print = function () {
+        //         console.log("hello,welcome"+this.name);
+        //     }
+        //     return obj;
+        // }
+        // var instance1= person("lili", 22, "suzhou china");
+        // instance1.print();
+
+        // var tempperson = new person("jack", 22, "suzhou china");
+        // tempperson.print();
+
+
+        // function Student(name, age) {   //构造函数以大写字母开头，普通函数以小写字母开头
+        //     this.name = name;
+        //     this.age = age;
+        //     this.sayName = function () {
+        //         console.log(this.name)
+        //     };
+        // }
+
+
+        // var calculator = (function () {
+        //     // 这里形成一个单独的私有的空间
+        //     // 私有成员的作用：
+        //     //   1、将一个成员私有化
+        //     //   2、抽象公共方法（其他成员中会用到的）
+
+        //     // 私有的转换逻辑
+        //     function convert(input) {
+        //         return parseInt(input);
+        //     }
+
+        //     function add(a, b) {
+        //         return convert(a) + convert(b);
+        //     }
+        //     function subtract(a, b) { }
+        //     function multiply(a, b) { }
+        //     function divide(a, b) { }
+        //     return {
+        //         add: add,
+        //         subtract: subtract,
+        //         multiply: multiply,
+        //         divide: divide
+        //     }
+        // })();
+
+        // let a = calculator.add(3, 5);
+        // console.log(a);
+
+
+        // function SuperType() {
+        //     this.colors = ['red', 'blue', 'green']
+        //     this.print = function () {
+        //         alert("fdfdsfdss");
+        //     }
+        // }
+        // SuperType.prototype.show = function () {
+        //     alert("hello,welcome!")
+        // }
+        // function SubType() {
+        //     // 继承SuperType
+        //     SuperType.call(this)
+        // }
+        // SubType.prototype.show=function(){console.log("jfdkfj");}
+
+        // //SubType.prototype = new SuperType()
+        // var subtype = new SubType();
+        // console.log(subtype.colors);
+        // subtype.print();
+        // subtype.show();
+
+
+
+        //创建一个可写的,可枚举的,可配置的属性p
+        // o2 = Object.create(Object.prototype, {
+        //     name: { value: "mooshine" },
+        //     age: {
+        //         writable: false, configurable: true, value: (function(){
+        //             alert("tongcheng");
+        //             return 2;
+        //         })(), enumerable: true
+        //     }})
+        //     console.log(o2.name);
+        //     console.log(o2.age);
+
+        // function CreateAnother(o) {
+        //     var newobj = Object.create(o);
+        //     return newobj;
+        // }
+        // var person = {
+        //     name: 'Jiang'
+        // }
+        // person.print = function () {
+        //     console.log("jfdkjf");
+        // }
+
+        // var student = CreateAnother(person);
+        // student.show = function () { alert("fjdkfj"); }
+        // student.print();
+        // student.show();
+
+
+        // function SuperType(name) {
+        //     this.name = name;
+        //      this.colors = ['red', 'blue', 'green']
+        // }
+
+        // SuperType.prototype.sayName = function () {
+        //     console.log(this.name)
+        // }
+
+        // function SubType(name, job) {
+        //     // 继承属性
+        //     SuperType.call(this, name)
+
+        //     this.job = job
+        // }
+
+        // // 继承方法
+        // SubType.prototype = new SuperType();
+        // SubType.prototype.constructor =SuperType;//SubType;
+        // SubType.prototype.sayJob = function () {
+        //     console.log(this.job)
+        // }
+
+        // var instance1 = new SubType('Jiang', 'student');
+        // instance1.colors.push('black');
+        // console.log(instance1.colors) //["red", "blue", "green", "black"]
+        // instance1.sayName() // 'Jiang'
+        // instance1.sayJob() // 'student'
+        // var instance2 = new SubType('J', 'doctor');
+        // console.log(instance2.colors) // //["red", "blue", "green"]
+        // instance2.sayName() // 'J'
+        // instance2.sayJob() // 'doctor'
+    </script>
+</body>
+
+</html>

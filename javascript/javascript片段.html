@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<script type="text/javascript">
+		//list of images for the slideshow 
+		var imageList = ["http://a.hiphotos.baidu.com/image/h%3D300/sign=a62e824376d98d1069d40a31113eb807/838ba61ea8d3fd1fc9c7b6853a4e251f94ca5f46.jpg", "http://e.hiphotos.baidu.com/image/h%3D300/sign=8d3a9ea62c7f9e2f6f351b082f31e962/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg"];
+		var count = 0;
+		//invoke this when user wants to see a Full Screen Slideshow 
+		function enterFullScreen() {
+			var elem = document.getElementById("slideshow");
+			//show full screen 
+			elem.webkitRequestFullScreen();
+			setTimeout(changePicture, 3000);
+		}
+
+		function changePicture() {
+			count++;
+			//cycle through the list of images 
+			document.getElementById("image1").src = imageList[count % imageList.length];
+			if (document.webkitIsFullScreen)
+				setTimeout(changePicture, 3000);
+			else
+				//if user exits the full screen mode
+				document.getElementById("image1").src = imageList[0];
+		} 
+	</script>
+</head>
+
+<body>
+	<div id="slideshow">
+		<img id="image1"
+			src="http://e.hiphotos.baidu.com/image/h%3D300/sign=907f6e689ddda144c5096ab282b6d009/dc54564e9258d1092f7663c9db58ccbf6c814d30.jpg"><img>
+	</div>
+	<br>
+	<input type="button" value="Enter full screen mode" onclick=enterFullScreen()>
+</body>
+
+</html>
+/*
+42 – 处理WebSocket超时
+
+通常，在一个WebSocket连接创建之后，如果你没有活动的话，服务器会在30秒之后断开（time out）你的连接。防火墙也会在一段时间不活动之后断开连接。
+
+为了防止超时的问题，你可能需要间歇性地向服务器端发送空消息。要这样做的话，你可以在你的代码里添加下面的两个函数：一个用来保持连接，另一个用来取消连接的保持。通过这个技巧，你可以控制超时的问题。
+
+使用一个 timerID：
+
+var timerID = 0;
+function keepAlive() {
+var timeout = 15000;
+if (webSocket.readyState == webSocket.OPEN) {
+webSocket.send('');
+}
+timerId = setTimeout(keepAlive, timeout);
+}
+function cancelKeepAlive() {
+if (timerId) {
+cancelTimeout(timerId);
+}
+}
+
+*/

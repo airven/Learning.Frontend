@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>javascript面向对象</title>
+</head>
+
+<body>
+    <p></p>
+    <script>
+        /*方式一,采用构造函数来创建对象*/
+        var obj1 = new Object();
+        obj1.name = "fucus";
+        obj1.color = "green";
+        obj1.action = function () {
+            console.log(`the car ${this.name} is running,color is ${this.color}`);
+        }
+        obj1.action();
+
+        /*方式二,采用object.create方法来创建对象*/
+        /*var obj2=Object.create();
+        Uncaught TypeError: Object prototype may only be an Object or null: undefined
+        at Function.create (<anonymous>)*/
+        var obj2 = Object.create({});
+        //or Object.create(Object.prototype);
+        //or Object.create({});
+        obj2.name = "大众汽车";
+        obj2.color = "white";
+        obj2.action = function () {
+            console.log(`the car ${this.name} is running,color is ${this.color}`);
+        }
+        obj2.action();
+        //对于object.create来创建对象，但并不是所有浏览器支持
+        //对于ES5以下不支持这种方式的浏览器来说，可以用以下方式进行兼容，这也是Object.create的polyfill
+        // if (typeof Object.create !== "function") {
+        //     Object.create = function (proto, propertiesObject) {
+        //         if (typeof proto !== 'object' && typeof proto !== 'function') {
+        //             throw new TypeError('Object prototype may only be an Object: ' + proto);
+        //         } else if (proto === null) {
+        //             throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument.");
+        //         }
+        //         if (typeof propertiesObject != 'undefined') throw new Error("This browser's implementation of Object.create is a shim and doesn't support a second argument.");
+        //         function F() { }
+        //         F.prototype = proto;
+        //         return new F();
+        //     };
+        // }
+
+        /*方式三, 采用字典变量来创建对象*/
+        var obj3 = {
+            "name": "雪佛兰",
+            "color": "red",
+            "action": function () {
+                console.log(`the car ${this.name} is running,color is ${this.color}`);
+            }
+        };
+        obj3.action();
+
+        /*方式四, 采用自定义函数来创建对象*/
+        function obj4(name, color) {
+            this.name = name;
+            this.color = color;
+            this.action = function () {
+                console.log(`the car ${this.name} is running,color is ${this.color}`);
+            }
+        }
+        var newobj = new obj4("起亚K5", "green");
+        newobj.action();
+
+        /*方式四-一,的拓展之原型对象(prototype)*/
+        //思考一下，如果对一个已有的对象添加新方法，或者覆盖某个方法，这个时候就要去动原来的代码
+        //这种时候就会存在风险，因为已有的方法可能被别的地方引用了,如果修改不到位就会引发bug,所以这个时候原型化对象就会带来便捷
+        //还是在自定义构造函数基础上来写一个原型对象
+        function obj5(name, color) {
+            this.name = name;
+            this.color = color;
+        }
+        obj5.prototype.action = function () {
+            console.log(`the car ${this.name} is running,color is ${this.color}`);
+        }
+        var newobj5 = new obj5("东风雪铁龙", "blue");
+        newobj5.action();
+        //重写action，因为我不想动原来的代码
+        obj5.prototype.action = function () {
+            console.log(`the car ${this.name} is running,color is ${this.color}`);
+            console.log("I like this car");
+        }
+        var newobj6 = new obj5("北京现代", "black");
+        newobj6.action();
+
+        /*方式五,采用函数表达式的方式创建对象*/
+        //注意函数表达式的定义其实是变量，因此函数的调用是不用适先调用的
+        var obj6 = function () {
+            console.log("hello,welcome!");
+        }
+        obj6();
+
+        //当前这种函数表达式也是较传统的写法，在ECMA Script 6版本上出现了箭头函数
+        var test1 = (a, b) => { console.log(a + b); }
+        test1(5, 6);
+
+        var test2 = () => { console.log("我爱我的祖国"); }
+        test2();
+
+        var test3 = a => { console.log(`${a}`); }
+        test3("welcome to china");
+
+        //方式六:在es6标准上来创建对象以及成员方法
+        //基于es6的标准,也让后端开发人员看到一丝希望,那就是在前端看到类式写法的影子
+        //以下示例模拟了类，属性，方法这些成员信息, 看上去已经和面向对象的语言很相似了
+        class Animal {
+            constructor(name, color) {
+                this.name = name;
+                this.color = color;
+            }
+            get animalName(){
+                return this.name;
+            }
+            get animalColor(){
+                return this.color;
+            }
+            set  nameAttribute(name){
+                this.name=name;
+            }
+            set  colorAttribute(color){
+                this.color=color;
+            }
+            sleep() {
+                console.log(this.name + ' 正在睡觉,颜色是' + this.color);
+            }
+            eat(food) {
+                console.log(this.name + '正在吃' + food)
+            }
+        }
+        let cat = new Animal("tom", "gray");
+        cat.sleep();
+        cat.eat("bread");
+
+        cat.nameAttribute="jack";
+        cat.colorAttribute="black";
+        cat.sleep();
+
+        /*闭包*/
+        // 声明 User 构造器
+        function User(pwd) {
+            // 定义私有属性
+            var password = pwd;
+            // 定义私有方法
+            function getPassword() {
+                // 返回了闭包中的 password 
+                return password;
+            }
+            //特权函数声明，用于该对象其他公有方法能通过该特权方法访问到私有成员
+            this.passwordService = function () {
+                return getPassword();
+            }
+        }
+        // 公有成员声明 
+        User.prototype.checkPassword = function (pwd) {
+            return this.passwordService() ===
+                pwd;
+        };
+        // 验证隐藏性 
+        var u = new User("123456");
+        // 打印 true
+        console.log(u.checkPassword(
+            "123456"));
+        // 打印 undefined 
+        console.log(u.password);
+        // 打印 true 
+        console.log(typeof u.getPassword === "undefined");
+
+        /*私有方法*/
+        var calculator = (function () {
+            // 这里形成一个单独的私有的空间
+            // 私有成员的作用：
+            // 1、将一个成员私有化
+            // 2、抽象公共方法（其他成员中会用到的）
+            // 私有的转换逻辑
+            function convert(input) {
+                return parseInt(input);
+            }
+
+            function add(a, b) {
+                return convert(a) + convert(b);
+            }
+            function subtract(a, b) { }
+            function multiply(a, b) { }
+            function divide(a, b) { }
+            return {
+                add: add,
+                subtract: subtract,
+                multiply: multiply,
+                divide: divide
+            }
+        })();
+        calculator.print = function () {
+            console.log("jkfdjfkjdfkjd");
+        }
+        calculator.print();
+    </script>
+</body>
+
+</html>
