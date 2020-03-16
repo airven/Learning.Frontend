@@ -4,34 +4,19 @@ http://caibaojian.com/javascript-object-2.html
 ES6 核心特性
 http://caibaojian.com/es6-features.html
 
-JavaScript基于原型链和继承的类详解
-http://caibaojian.com/javascript-class.html
-
-JavaScript六种继承方式详解
-http://caibaojian.com/6-javascript-prototype.html
-
 JavaScript中的模块化开发
 http://caibaojian.com/javascript-module.html
-
-《JavaScript模式》设计模式
-http://caibaojian.com/javascript-patterns-chapter7.html
 
 用 JavaScript 创建模块化的交互用户界面
 https://www.ibm.com/developerworks/cn/web/wa-aj-rearrange/index.html
 
-开始使用面向对象的 JavaScript 代码
-https://www.ibm.com/developerworks/cn/web/wa-oojavascript/index.html
-
-全面理解面向对象的 JavaScript
-https://www.ibm.com/developerworks/cn/web/1304_zengyz_jsoo/index.html
 
 DOM 脚本编程：示例应用程序
 https://www.ibm.com/developerworks/cn/web/wa-jsdomupdate/index.html#list13
 
-Classical Inheritance in JavaScript
-http://www.crockford.com/javascript/inheritance.html
-
-
+Building ES6 Javascript for the Browser with Gulp, Babel, and More
+https://thecodeboss.dev/2016/01/building-es6-javascript-for-the-browser-with-gulp-babel-and-more/
+https://www.dotnetcurry.com/javascript/1293/transpile-es6-modules-es5-using-babel
 
 
 

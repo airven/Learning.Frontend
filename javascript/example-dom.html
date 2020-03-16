@@ -1,12 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>javascript-dom编程</title>
+    <title>使用JavaScript遍历文档对象模型</title>
+    <style>
+        DIV.wrapper {
+            margin: 0px auto;
+            width: 940px;
+            padding: 40px 0px;
+        }
+
+        DIV#notes {
+            padding: 40px 0px;
+            float: left;
+            clear: left;
+        }
+
+        DIV#notes DIV.note {
+            padding: 20px;
+            background-color: yellow;
+            width: 200px;
+            float: left;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            display: inline;
+            border: 5px #fff solid;
+            position: relative;
+        }
+
+        DIV#notes DIV.note P {
+            padding-bottom: 10px;
+            font-size: 1.5em;
+            color: #000;
+        }
+
+        DIV#notes DIV.note P.editable {
+            cursor: text;
+        }
+
+        DIV#notes DIV.note A {
+            font-size: 1.1em;
+        }
+
+        DIV#notes DIV.note A.submit {
+            display: none;
+        }
+
+        DIV#notes DIV.note A.remove {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10px;
+        }
+
+        DIV.links,
+        DIV#counter {
+            float: left;
+            width: auto;
+            padding-top: 20px;
+            clear: both;
+        }
+
+        DIV.links A,
+        DIV.links SPAN {
+            color: #ccc;
+            font-size: 1.3em;
+        }
+
+        DIV.links A:hover {
+            color: #A22;
+        }
+
+        DIV.links TEXTAREA {
+            width: 200px;
+            padding: 10px;
+            font-size: 1.5em;
+        }
+
+        DIV.links A {
+            padding-left: 10px;
+        }
+
+        DIV#counter P SPAN {
+            color: red;
+        }
+    </style>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
 </head>
+
 <body>
-    
+    <div class="wrapper">
+        <h1> Sticky Notes </h1>
+        <div class="links">
+            <textarea id="contentArea" cols="10"> </textarea>
+            <a href="/random.html" class="add">Click here</a>
+            <span>to add a sticky note</span>
+        </div>
+        <div id="notes">
+            <div class="note">
+                <p>
+                    This is a note
+                </p>
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+    window.SA = {
+        addEvent: function (element, evType, fn, useCapture) {
+            if (element.addEventListener) {
+                element.addEventListener(evType, fn, useCapture);
+                return true;
+            } else if (element.attachEvent) {
+                var r = element.attachEvent('on' + evType, fn);
+                return r;
+            } else {
+                element['on' + evType] = fn;
+            }
+        },
+        load: function () {
+
+            var anchorSelected;
+            if (document.getElementsByClassName) {
+                anchorSelected = document.getElementsByClassName("add")[0];
+
+            } else {
+                var anchors = document.getElementsByTagName("a"),
+                    alenght = anchors.length;
+                for (var i = 0; i < alenght; i++) {
+                    var anchor = anchors[i];
+
+                    if (anchor.className === "add") {
+                        anchorSelected = anchor;
+                    }
+                }
+            }
+
+            SA.addEvent(anchorSelected, "click", SA.addNote, false);
+        },
+
+        addNote: function (event) {
+            var notes = document.getElementById("notes");
+            // Clone the node
+            var newNode = notes.children[0].cloneNode(true);
+            // Set the content of the node
+            newNode.getElementsByTagName("p")[0].firstChild.nodeValue
+                = document.getElementById("contentArea").value;
+
+            notes.appendChild(newNode);
+            event.preventDefault ? event.preventDefault() : event.returnValue = false;
+        }
+    }
+    SA.addEvent(window, "load", SA.load, false);
+
+
+    //采用Jquery的方式
+    $(function () {
+            $('a.add').click(function () {
+                var newNote = $('.note').eq(0).clone();
+                newNote.find('p').text($('#contentArea').val());
+                $('#notes').append(newNote);
+                return false;
+            });
+        });
+
+</script>
+
 </html>
