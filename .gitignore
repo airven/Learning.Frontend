@@ -1,5 +1,10 @@
 ﻿################################################################################
 # 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
 ################################################################################
-
+/javascript/node_modules
 /javascript/node_modules/.bin/ansi-html
+*.suo
+/javascript/.vs/ProjectSettings.json
+/javascript/.vs/config/applicationhost.config
+/javascript/.vs/slnx.sqlite
+/ts/node_modules
